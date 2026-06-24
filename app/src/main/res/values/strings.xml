@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pinote</string>
+    <string name="note_hint">Note</string>
+    <string name="note_title">Note</string>
+    <string name="done">Done</string>
+    <string name="empty_note">Write a note first</string>
+    <string name="permission_needed">Notifications are needed to pin notes</string>
+</resources>
