@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         root.addView(done, new LinearLayout.LayoutParams(-1, -2));
         setContentView(root);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         note.requestFocus();
         note.postDelayed(() -> ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).showSoftInput(note, InputMethodManager.SHOW_IMPLICIT), 200);
     }

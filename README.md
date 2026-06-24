@@ -16,4 +16,4 @@ Pinote is a tiny Android app that turns short notes into notifications.
 ./gradlew assembleDebug
 ```
 
-The checked build artifact is `dist/pinote-v1-debug.apk`.
+The checked build artifact is `dist/pinote-v1.1-debug.apk`.
