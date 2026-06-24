@@ -38,8 +38,17 @@ public class MainActivity extends Activity {
         int pad = (int) (16 * getResources().getDisplayMetrics().density);
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(getColor(R.color.pinote_bg));
         root.setPadding(pad, pad, pad, pad);
-        root.addView(note, new LinearLayout.LayoutParams(-1, 0, 1));
+        note.setBackgroundResource(R.drawable.note_box);
+        note.setHintTextColor(getColor(R.color.pinote_hint));
+        note.setPadding(pad, pad, pad, pad);
+        note.setTextColor(getColor(R.color.pinote_text));
+        done.setBackgroundResource(R.drawable.done_button);
+        done.setTextColor(getColor(R.color.pinote_button_text));
+        LinearLayout.LayoutParams noteParams = new LinearLayout.LayoutParams(-1, 0, 1);
+        noteParams.bottomMargin = pad;
+        root.addView(note, noteParams);
         root.addView(done, new LinearLayout.LayoutParams(-1, -2));
         setContentView(root);
 

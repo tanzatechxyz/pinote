@@ -1,4 +1,10 @@
 <resources>
-    <color name="pinote_green">#176B5B</color>
-    <color name="pinote_icon_bg">#EAF7F1</color>
+    <color name="pinote_accent">#2F8CFF</color>
+    <color name="pinote_bg">#0B0F16</color>
+    <color name="pinote_button_text">#FFFFFF</color>
+    <color name="pinote_hint">#8E98A8</color>
+    <color name="pinote_icon_bg">#0B0F16</color>
+    <color name="pinote_surface">#151B24</color>
+    <color name="pinote_surface_stroke">#2A3443</color>
+    <color name="pinote_text">#F5F7FA</color>
 </resources>

@@ -9,6 +9,7 @@ Pinote is a tiny Android app that turns short notes into notifications.
 - Each notification has a Done action that removes it.
 - Swiping a notification recreates it until Done is tapped.
 - Notes survive app restarts and phone reboots.
+- Dark UI with the Done button kept above the keyboard.
 
 ## Build
 
@@ -16,4 +17,4 @@ Pinote is a tiny Android app that turns short notes into notifications.
 ./gradlew assembleDebug
 ```
 
-The checked build artifact is `dist/pinote-v1.1-debug.apk`.
+The checked build artifact is `dist/pinote-v1.2-debug.apk`.
