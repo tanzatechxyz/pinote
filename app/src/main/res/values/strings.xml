@@ -5,4 +5,6 @@
     <string name="done">Done</string>
     <string name="empty_note">Write a note first</string>
     <string name="permission_needed">Notifications are needed to pin notes</string>
+    <string name="channel_notes_name">Notes</string>
+    <string name="channel_notes_description">Pinned notes</string>
 </resources>

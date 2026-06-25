@@ -1,0 +1,6 @@
+<resources>
+    <style name="Theme.Pinote" parent="@style/PinoteThemeBase">
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

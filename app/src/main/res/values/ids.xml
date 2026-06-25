@@ -1,0 +1,4 @@
+<resources>
+    <item name="note_input" type="id" />
+    <item name="done_button" type="id" />
+</resources>

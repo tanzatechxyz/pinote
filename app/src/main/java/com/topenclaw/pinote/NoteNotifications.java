@@ -14,22 +14,25 @@ import java.util.Map;
 
 final class NoteNotifications {
     private static final String CHANNEL = "notes";
+    private static final int REQUEST_OPEN = 1;
+    private static final int REQUEST_DONE = 2;
+    private static final int REQUEST_RESTORE = 3;
 
     private NoteNotifications() {}
 
     static void ensureChannel(Context context) {
-        NotificationChannel channel = new NotificationChannel(CHANNEL, "Notes", NotificationManager.IMPORTANCE_LOW);
-        channel.setDescription("Pinned notes");
+        NotificationChannel channel = new NotificationChannel(CHANNEL, context.getString(R.string.channel_notes_name), NotificationManager.IMPORTANCE_LOW);
+        channel.setDescription(context.getString(R.string.channel_notes_description));
         manager(context).createNotificationChannel(channel);
     }
 
-    static void show(Context context, long id, String text) {
-        if (!canPost(context)) return;
-        PendingIntent done = receiver(context, id, NoteReceiver.ACTION_DONE);
-        PendingIntent restore = receiver(context, id, NoteReceiver.ACTION_RESTORE);
+    static boolean show(Context context, long id, String text) {
+        if (!canPost(context)) return false;
+        PendingIntent done = receiver(context, id, NoteReceiver.ACTION_DONE, REQUEST_DONE);
+        PendingIntent restore = receiver(context, id, NoteReceiver.ACTION_RESTORE, REQUEST_RESTORE);
         PendingIntent open = PendingIntent.getActivity(
             context,
-            (int) id,
+            requestCode(id, REQUEST_OPEN),
             new Intent(context, MainActivity.class),
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
@@ -44,7 +47,8 @@ final class NoteNotifications {
             .setAutoCancel(false)
             .addAction(new Notification.Action.Builder(Icon.createWithResource(context, R.drawable.ic_stat_note), context.getString(R.string.done), done).build())
             .build();
-        manager(context).notify((int) id, notification);
+        manager(context).notify(notificationId(id), notification);
+        return true;
     }
 
     static void restoreAll(Context context) {
@@ -54,12 +58,27 @@ final class NoteNotifications {
     }
 
     static void cancel(Context context, long id) {
-        manager(context).cancel((int) id);
+        manager(context).cancel(notificationId(id));
     }
 
-    private static PendingIntent receiver(Context context, long id, String action) {
+    private static PendingIntent receiver(Context context, long id, String action, int actionCode) {
         Intent intent = new Intent(context, NoteReceiver.class).setAction(action).putExtra(NoteReceiver.EXTRA_ID, id);
-        return PendingIntent.getBroadcast(context, (int) (id + action.hashCode()), intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        return PendingIntent.getBroadcast(context, requestCode(id, actionCode), intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    private static int notificationId(long id) {
+        if (id <= 0 || id > Integer.MAX_VALUE) {
+            throw new IllegalStateException("Notification ID out of range");
+        }
+        return (int) id;
+    }
+
+    private static int requestCode(long id, int actionCode) {
+        try {
+            return Math.toIntExact(Math.addExact(Math.multiplyExact(id, 10), actionCode));
+        } catch (ArithmeticException e) {
+            throw new IllegalStateException("Notification request code out of range", e);
+        }
     }
 
     private static boolean canPost(Context context) {
